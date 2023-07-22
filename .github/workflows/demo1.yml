@@ -1,0 +1,23 @@
+name: Events Demo 1
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+      - dev*
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - dev*
+    paths-ignore:
+      - '.github/workflows/*'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output event data
+        run: echo ${{ joJSON(github.event) }}
+      - name: Get Code
+        uses: actions/checkout@v3
